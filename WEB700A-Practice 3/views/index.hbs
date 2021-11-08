@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>AJAX Practice</title>
+    <script>
+
+        // CREATE
+
+        function addName(name) {
+            fetch("/api/names", {
+                method: "POST",
+                body: JSON.stringify({ name: name }),
+                headers: {
+                    "content-type": "application/json"
+                }
+            }).then(res=>res.json()).then(data=>{
+                console.log(data);
+            });
+        }
+
+        // READ
+
+        function getAllNames() {
+            fetch("/api/names").then(res => res.json()).then(data => {
+                console.log(data);
+            })
+        }
+
+        function getNameById(id) {
+            fetch(`/api/names/${id}`).then(res => res.json()).then(data => {
+                console.log(data);
+            });
+        }
+
+        // UPDATE
+
+        function updateNameById(id, name){
+            fetch(`/api/names/${id}`, {
+                method: "PUT",
+                body: JSON.stringify({name: name}),
+                headers: {
+                    "content-type": "application/json"
+                }
+            }).then(res=>res.json()).then(data=>{
+                console.log(data);
+            });
+        }
+
+        // DELETE
+
+        function deleteNameById(id){
+            fetch(`/api/names/${id}`, {
+                method: "DELETE"
+            }).then(res=>res.json()).then(data=>{
+                console.log(data);
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <h1>AJAX Practice</h1>
+    <hr />
+    <h4>Create</h4>
+    <button onclick="addName('Stephen')">Add &ldquo;Stephen&rdquo;</button>
+    <h4>Read</h4>
+    <button onclick="getAllNames()">Get All Names</button><br /><br />
+    <button onclick="getNameById(1)">Get Name 1</button><br />
+    <h4>Update</h4>
+    <button onclick="updateNameById(1, 'Carrie')">Update Name 1 to &ldquo;Carrie&rdquo;</button><br />
+    <h4>Delete</h4>
+    <button onclick="deleteNameById(2)">Delete Name 2   </button><br />
+    
+</body>
+
+</html>
